@@ -20,7 +20,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin(),
-    new CleanWebpackPlugin('build', {
+    new CleanWebpackPlugin({
       root: __dirname,
       verbose: false
     })
@@ -36,7 +36,7 @@ module.exports = {
         test: /\.config$/,
         use: [
           {
-            loader: '../source',
+            loader: 'inject-config-loader',
             options: {
               field: 'front'
             }
