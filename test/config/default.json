@@ -1,0 +1,9 @@
+{
+  "build": {
+    "progress": "minimal"
+  },
+  "front": {
+    "logging": true,
+    "version": "0.0.7"
+  }
+}
