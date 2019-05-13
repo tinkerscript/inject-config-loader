@@ -5,10 +5,17 @@ node_js:
 - '8'
 - '6'
 
-deploy:
-  provider: npm
-  email: tinkerscript@gmail.com
-  api_key:
-    secure: W4Glg/iR3lt/WgmzvjhZ6c6Ibdu5UhuIaO7cOSNPtYUc0fXSEEk8QK8k/ACtzsUtMhmYdeP5n0lgwlNFWm5epL7Y/b1kd3YwLnZnTrMYfUz6K7Jh5is9MH8SxEDMZRgbajtN7bGwFflHdzqzFVaHdUhTG8xvA/3TAFp+JeLyGSXftxzvh36lYG1IpGYO3ioEBFHrQ2sN1L6FYYLihGiYisuvnmXef7TDv1RrI3NPPkyC5ys80UTgsfvaoLmTAOT9TOQJ72uXcLvczohl0nfFgBckblHjw3GlsLHbMqhr/wE9i0W+g0BMbLsk3gMIL3ktqHIJjzX2T5DM9IcUAiN+8oMGsJ3D8JK8ECN8UHIJU7j1b9Qv7SUBpueHgUszWkj8wQW3EF6DA2G+3bg7qE4JL0OwNCbJuIPfqGO+J9ZVTTe91l5lXeJ3joJpe/LVfkVSNSldlAm5Q5I3VkH3yhTlfA3OQHZIFPV7Y6CEFaWw7LQHHlE7bci0xhoHYbsDszuLeoAq8OX91e3uGlTszzS3axF5+EJpezst2Z88nIVRc6e/sygAXx6r/864DCZM35bwYynJeInBXKXR4KldpIiDJBXt6mEfHTezRNAalN30q3jakwo3mQI8w3wYAvg99AJNNm/GJV76e9IQiN9ozu1aFQ8VjhXgFYKRzccPHFJOZY8=
-  on:
-    branch: master
+script: echo "Running tests against $(node -v)..."
+
+jobs:
+  include:
+    - stage: npm release
+    node_js: 10
+    script: echo "Deploying to npm..."
+    deploy:
+      provider: npm
+      email: tinkerscript@gmail.com
+      api_key:
+        secure: W4Glg/iR3lt/WgmzvjhZ6c6Ibdu5UhuIaO7cOSNPtYUc0fXSEEk8QK8k/ACtzsUtMhmYdeP5n0lgwlNFWm5epL7Y/b1kd3YwLnZnTrMYfUz6K7Jh5is9MH8SxEDMZRgbajtN7bGwFflHdzqzFVaHdUhTG8xvA/3TAFp+JeLyGSXftxzvh36lYG1IpGYO3ioEBFHrQ2sN1L6FYYLihGiYisuvnmXef7TDv1RrI3NPPkyC5ys80UTgsfvaoLmTAOT9TOQJ72uXcLvczohl0nfFgBckblHjw3GlsLHbMqhr/wE9i0W+g0BMbLsk3gMIL3ktqHIJjzX2T5DM9IcUAiN+8oMGsJ3D8JK8ECN8UHIJU7j1b9Qv7SUBpueHgUszWkj8wQW3EF6DA2G+3bg7qE4JL0OwNCbJuIPfqGO+J9ZVTTe91l5lXeJ3joJpe/LVfkVSNSldlAm5Q5I3VkH3yhTlfA3OQHZIFPV7Y6CEFaWw7LQHHlE7bci0xhoHYbsDszuLeoAq8OX91e3uGlTszzS3axF5+EJpezst2Z88nIVRc6e/sygAXx6r/864DCZM35bwYynJeInBXKXR4KldpIiDJBXt6mEfHTezRNAalN30q3jakwo3mQI8w3wYAvg99AJNNm/GJV76e9IQiN9ozu1aFQ8VjhXgFYKRzccPHFJOZY8=
+      on:
+        branch: master
