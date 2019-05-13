@@ -4,14 +4,13 @@ node_js:
   - '10'
   - '8'
   - '6'
-
-script: echo "Running tests against $(node -v)..."
-
+branches:
+  only:
+    - master
 jobs:
   include:
     - stage: npm release
       node_js: '10'
-      script: echo "Deploying to npm..."
       deploy:
         provider: npm
         email: tinkerscript@gmail.com
