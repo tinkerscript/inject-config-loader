@@ -1,6 +1,6 @@
 {
   "name": "inject-config-loader",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "inject config into webpack bundle",
   "main": "source/index.js",
   "repository": "git@github.com:tinkerscript/inject-config-loader.git",
