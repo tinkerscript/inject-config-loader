@@ -3,12 +3,8 @@ const loader = require('../source')
 
 describe('loader', () => {
   const context = {
-    addContextDependency: () => {}
+    addContextDependency: () => assert.fail('addContextDependency is called')
   }
-
-	it('should be a function', () => {
-    assert.equal(typeof loader, 'function')
-  })
 
   it('should return full config when no field specified', () => {
     const expected = `export default {"build":{"progress":"minimal"},"front":{"logging":true,"version":"0.0.7"}};`
@@ -27,13 +23,14 @@ describe('loader', () => {
     assert.equal(source, expected)
   })
 
-  it('should register context dependency', () => {
+  it('should register context dependency when watch true', () => {
     let counter = 0;
     const expected = `export default {"logging":true,"version":"0.0.7"};`
     const source = loader.call({
       addContextDependency: () => counter += 1,
       query: {
-        field: 'front'
+        field: 'front',
+        watch: true,
       },
     })
 

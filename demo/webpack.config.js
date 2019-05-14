@@ -38,7 +38,8 @@ module.exports = {
           {
             loader: 'inject-config-loader',
             options: {
-              field: 'front'
+              field: 'front',
+              watch: true
             }
           }
         ]
