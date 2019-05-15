@@ -6,6 +6,10 @@ inject config into webpack bundle
 
 ## Install
 ```bash
+npm install inject-config-loader --save-dev
+```
+or
+```bash
 yarn add -D inject-config-loader
 ```
 
