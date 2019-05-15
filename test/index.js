@@ -23,14 +23,14 @@ describe('loader', () => {
     assert.equal(source, expected)
   })
 
-  it('should register context dependency when watch true', () => {
+  it('should register context dependency when cache is false', () => {
     let counter = 0;
     const expected = `export default {"logging":true,"version":"0.0.7"};`
     const source = loader.call({
       addContextDependency: () => counter += 1,
       query: {
         field: 'front',
-        watch: true,
+        cache: false,
       },
     })
 

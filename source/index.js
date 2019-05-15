@@ -5,14 +5,15 @@ const getConfigDir = require('./getConfigDir')
 module.exports = function () {
   const configDir = getConfigDir()
   const options = loaderUtils.getOptions(this) || {}
+  const { field, cache = true } = options;
   let targetConfig = config
 
-  if (options.watch) {
+  if (!cache) {
     targetConfig = config.util.loadFileConfigs(configDir)
     this.addContextDependency(configDir)
   }
 
-  const data = options.field ? targetConfig[options.field] : targetConfig
+  const data = field ? targetConfig[field] : targetConfig
   const result = `export default ${JSON.stringify(data)};`
 
   this.value = [result]
