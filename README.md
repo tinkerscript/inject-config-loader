@@ -28,8 +28,7 @@ module.exports = {
           {
             loader: 'inject-config-loader',
             options: {
-              field: 'front',
-              watch: true // for live-reloading; default is false
+              field: 'front'
             }
           }
         ]
@@ -39,6 +38,12 @@ module.exports = {
   // ...
 }
 ```
+## Options
+### field (string)
+Name of a config property that will be injected. By default whole config is injected.
+### cache (bool)
+Default value: true (recommended for production).
+If false, all changes in config files will trigger an incremental build.
 
-
+## Example
 See sample webpack.config.js in [demo folder](https://github.com/tinkerscript/inject-config-loader/tree/master/demo).
