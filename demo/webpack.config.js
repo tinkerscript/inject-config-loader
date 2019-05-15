@@ -39,7 +39,7 @@ module.exports = {
             loader: 'inject-config-loader',
             options: {
               field: 'front',
-              watch: true
+              cache: false // for development
             }
           }
         ]
