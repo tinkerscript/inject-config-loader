@@ -1,22 +1,42 @@
-const config = require('config')
+const fs = require('fs')
+const path = require('path')
 const loaderUtils = require('loader-utils')
-const getConfigDir = require('./getConfigDir')
+const nestedProperty = require('nested-property')
+
+const performLoading = (cache, addContextDependency) => new Promise((resolve, reject) => {
+  const config = require('config')
+
+  if (cache) {
+    resolve(config.util.toObject(config))
+  } else {
+    let configDir = path.join(process.cwd(), 'config')
+
+    if (process.env.NODE_CONFIG_DIR) {
+      configDir = process.env.NODE_CONFIG_DIR
+    }
+  
+    fs.access(configDir, err => {
+      if (err) {
+          reject(new Error(`Can't find config folder at ${configDir}`))
+          return
+      }
+
+      addContextDependency(configDir)
+      resolve(config.util.loadFileConfigs(configDir))
+    })
+  }
+})
 
 module.exports = function () {
-  const configDir = getConfigDir()
+  const callback = this.async()
   const options = loaderUtils.getOptions(this) || {}
   const { field, cache = true } = options;
-  let targetConfig = config
 
-  if (!cache) {
-    targetConfig = config.util.loadFileConfigs(configDir)
-    this.addContextDependency(configDir)
-  }
-
-  const data = field ? targetConfig[field] : targetConfig
-  const result = `export default ${JSON.stringify(data)};`
-
-  this.value = [result]
-
-  return result
+  performLoading(cache, this.addContextDependency).then(config => {
+    const data = field ? nestedProperty.get(config, field) : config
+    const result = `export default ${JSON.stringify(data)};`
+    callback(null, result)
+  }).catch(err => {
+    callback(err)
+  })
 }
